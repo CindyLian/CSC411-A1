@@ -1,0 +1,606 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{subcaption}
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+
+\setlist{nosep,after=\vspace{\baselineskip}}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{\hmwkClass\ (\hmwkClassTime): \hmwkTitle} % Top center head
+%\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{Perl} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=Perl, % Use Perl in this example
+        frame=single, % Single frame around code
+        basicstyle=\small\ttfamily, % Use small true type font
+        keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
+        keywordstyle=[2]\color{Purple}, % Perl function arguments purple
+        keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+        identifierstyle=, % Nothing special about identifiers                                         
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+        stringstyle=\color{Purple}, % Strings are purple
+        showstringspaces=false, % Don't put marks in string spaces
+        tabsize=5, % 5 spaces per tab
+        %
+        % Put standard Perl functions not included in the default language here
+        morekeywords={rand},
+        %
+        % Put Perl function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        % Put user defined functions here
+        morekeywords=[3]{test},
+       	%
+        morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+        numbers=left, % Line numbers on left
+        firstnumber=1, % Line numbers start with line 1
+        numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+        stepnumber=5 % Line numbers go in steps of 5
+}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
+\newcommand{\perlscript}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.pl}
+\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+%\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+\setcounter{homeworkProblemCounter}{0}
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Part \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Assignment 1} % Assignment title
+\newcommand{\hmwkDueDate}{Monday,\ January\ 29,\ 2018} % Due date
+\newcommand{\hmwkClass}{CSC411} % Course/class
+\newcommand{\hmwkClassTime}{LEC2001} % Class/lecture time
+\newcommand{\hmwkAuthorName}{Cindy Lian} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+\vspace{0.1in}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+\clearpage
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+\textit{Description of Dataset}\\
+
+The dataset of faces is given as a text file with each line in the file representing one photo. Each line includes the actor's or actress' name, the URL where the photo can be downloaded from, and the bounding box of the part of the photo which should be cropped out. In the given dataset, there are 6 actors and 6 actresses - each of which has 100+ photos. The raw photos are given with sizes ranging from 3000x4500 pixels to 200x200 pixels. Some of the images given in the dataset do not work and they must be excluded either manually or through code. \\
+
+Some of the photos have the actor or actress facing the camera head on, some of them have the actor or actress looking to the side, and some of the photos contain other people in addition to the intended actor. Most of the crop boundaries are good at centering the face without having additional space on the sides of the cropped image. The images in Figure \ref{fig:part1} have been selected to properly demonstrate the quality of the crop boundaries and of the photos themselves. 
+
+\begin{figure}[h]
+	\centering
+    \begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{Part_1_images/baldwin81.jpg}
+        \caption{Alec Baldwin}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{Part_1_images/gilpin70.jpg}
+        \caption{Peri Gilpin}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{Part_1_images/harmon75.jpg}
+        \caption{Angie Harmon}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=\textwidth]{Part_1_images/baldwincropped.jpg}
+    \end{subfigure}
+    \hspace{3cm}
+    \begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=\textwidth]{Part_1_images/gilpincropped.jpg}
+    \end{subfigure}
+    \hspace{3cm}
+    \begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=\textwidth]{Part_1_images/harmoncropped.jpg}
+    \end{subfigure}
+    
+	\caption{Three images selected to demonstrate the quality of the crop boundaries}
+	\label{fig:part1}
+\end{figure}
+
+As seen in Figure \ref{fig:part1}(a), the image and crop of Alec Baldwin is not accurate because he is not facing forward and there is a lot of background on the right side of the crop of his face. The image of Peri Gilpin in Figure \ref{fig:part1}(b) is accurate because her face is centered and facing forward. When there are a lot of images like this one, it makes it easy for the cropped-out faces to be aligned with each other. The cropped out image of Angie Harmon in Figure \ref{fig:part1}(c) is in between the previous two. Overall, the majority of the images have accurate bounding boxes, similar to the one in Figure \ref{fig:part1}(c) and the faces can be aligned with each other decently well. There are a few images with bad bounding boxes and there are a few images with no face at all. 
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+\textit{Separating the Dataset}\\
+
+The dataset was separated into the training set, validation set, and test set simply by iterating through each of the actors/actresses and allocating the images in the order that they were downloaded. The first 65 images for each actor were allocated to the training set, the next 10 were allocated to the test set, and the final 10 images were allocated to the validation set. 
+
+\begin{lstlisting}[language=Python, caption=Code used to split the images into the folders]
+#sort it in the corresponding folder
+if (count < 65):
+	location = "Training/"
+elif (count <75):
+	location = "Test/"
+else:
+	location = "Validation/"
+\end{lstlisting}
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 3
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+\textit{Distinguishing Alec Baldwin from Steve Carell}\\
+
+Linear regression was used to build a classifier which distinguishes images of Alec Baldwin from Steve Carell. The following cost function was minimized using gradient descent: 
+
+$$\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})^2$$
+
+For the training, Steve Carell was given the label 0 and Alec Baldwin was given the label 1. When classifying the images in the validation set, 0.5 was used as a boundary for the labels. An image with a hypothesis value less than 0.5 was classified as Steve Carell and an image with a hypothesis value greater than 0.5 was classified as Alec Baldwin. \\
+
+The parameters used for gradient descent were: 
+\begin{itemize}[noitemsep,topsep=0pt]
+	\item $\alpha = 0.000001$
+    \item max\_iter = 50000
+    \item $\theta_{0} = [0.01]*1025$
+\end{itemize}
+These parameters were chosen after testing gradient descent. It was found that when alpha was too large (>0.1), the code would cause an overflow. When alpha was too small, gradient descent would take too long to converge and after 50000 iterations, it still did not get the cost function close to its minimum. Thus, 0.000001 was chosen for alpha. The max iterations 50000 was chosen because when observing the cost function at the end of the 30000 iterations given in the gradient descent code on the CSC411 course website, it was still decreasing by a significant amount per iteration when it was terminated. The initialization of theta was chosen by trial and error. Randomizing the initial thetas and initializing thetas to all ones did not result in as good of a performance as the initialization to a value close to zero (0.01). \\
+
+The cost of the training set is: 3.6987 \\
+The cost of the validation set is: 1.3314\\
+The performance of the classifier on the training set is: 100\% \\
+The performance of the classifier on the validation set is: 90\%\\
+
+The following listing contains the code which was used to compute the output of the classifier for either the training set or the validation set. 
+\newpage
+
+\begin{lstlisting}[language=Python, caption=Code used to compute the output of the classifier]
+def test(theta, folder):
+    '''Tests the trained theta against a set of images. Returns the performance of the 
+    classifier against the chosen set of images. 
+    
+    Arguments:
+    theta --- The theta trained used gradient descent
+    folder --- The set of images which should be used (ie "Training" or "Validation")
+    
+    Return:
+    performance --- Ratio of correctly classified images to total images
+    '''
+    correct = 0 #counter storing the number of images classfied correctly 
+    (images,y) = readImages (folder,100)
+    images = vstack( (ones((1, images.shape[1])), images))
+    
+    for i in range (0,len(y)):
+        if (y[i] == 0):
+            print ("The image is of Steve Carell. Classified as: ")
+        else:
+            print ("The image is of Alec Baldwin. Classified as: ")
+        
+        classification = dot(theta, images.T[i])
+        
+        #0.5 is used as the boundary for the labels. If the correct label is 0 
+        #and the image was classified as <0.5, then it was classfied correctly.
+        #If the correct label is 1 and the image was classified as >0.5, then it 
+        #was classified correctly.  
+        if (classification < 0.5):
+            if (y[i] == 0):
+                correct = correct + 1
+            print ("Carell " + str(classification) + "\n")
+        else: 
+            if (y[i] == 1):
+                correct = correct + 1
+            print ("Baldwin " + str(classification) + "\n")
+    
+    performance = float(float(correct)/len(y))*100
+    print ("The classifier is correct " + str(performance) + "% of the time.")
+    return performance
+\end{lstlisting}
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 4
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+\textit{Visualizing Theta}\\
+
+\textbf{4(a)}
+The following figures are visualizations of theta when trained on two images per actors versus a full training set. 
+\begin{figure}[h]
+	\centering
+    \begin{subfigure}[b]{0.20\textwidth}
+		\includegraphics[width=\textwidth]{Part_4_images/Figure0a.png}
+        \caption{Two images}
+    \end{subfigure}
+    \hspace{2.5cm}
+    \begin{subfigure}[b]{0.20\textwidth}
+		\includegraphics[width=\textwidth]{Part_4_images/Figure1a.png}
+        \caption{Full training set}
+    \end{subfigure}
+	\caption{Theta represented as an image with different training set sizes}
+	\label{fig:part4a}
+\end{figure}
+
+\textbf{4(b)} 
+The following figures are visualizations of theta after having been trained using gradient descent under different parameters, but all trained using the full training set. In Figures \ref{fig:part4b1}(a) to \ref{fig:part4b1}(d), gradient descent was terminated at different steps. Theta was initialized to 0.01 for all images in Figure 3. 
+
+\begin{figure}[h]
+	\centering
+    \begin{subfigure}[b]{0.2\textwidth}
+		\includegraphics[width=\textwidth]{Part_4_images/Figure0b.png}
+        \caption{100 iterations}
+    \end{subfigure}
+    \hspace{0.5cm}
+    \begin{subfigure}[b]{0.2\textwidth}
+		\includegraphics[width=\textwidth]{Part_4_images/Figure1b.png}
+        \caption{500 iterations}
+    \end{subfigure}
+    \hspace{0.5cm}
+    \begin{subfigure}[b]{0.2\textwidth}
+		\includegraphics[width=\textwidth]{Part_4_images/Figure2b.png}
+        \caption{1000 iterations}
+    \end{subfigure}
+    \hspace{0cm}
+    \begin{subfigure}[b]{0.2\textwidth}
+		\includegraphics[width=\textwidth]{Part_4_images/Figure3b.png}
+        \caption{5000 iterations}
+    \end{subfigure}
+	\caption{Theta represented as an image with different stopping points for gradient descent}
+	\label{fig:part4b1}
+\end{figure}
+
+In Figures \ref{fig:part4b2}(a) to \ref{fig:part4b2}(d), theta was initialized using different strategies. In \ref{fig:part4b2}(a) and \ref{fig:part4b2}(c), theta was initialized to 0.01. In \ref{fig:part4b2}(b) and \ref{fig:part4b2}(d), theta was initialized to random values in between 0 and 1. Both 100 iterations and 1000 iterations of gradient descent are shown. After 1000 iterations of gradient descent when theta has been initialized randomly, there is not any kind of pattern in the image, whereas all the images with a non-random initialization have a discernible shape of face. 
+
+\begin{figure}[h]
+	\centering
+    \begin{subfigure}[b]{0.2\textwidth}
+		\includegraphics[width=\textwidth]{Part_4_images/Figure4b.png}
+        \caption{$\theta_{0} =0.01$, itr=100}
+    \end{subfigure}
+    \hspace{0.5cm}
+    \begin{subfigure}[b]{0.2\textwidth}
+		\includegraphics[width=\textwidth]{Part_4_images/Figure5b.png}
+        \caption{$\theta_{0} =rnd$, itr=100}
+    \end{subfigure}
+    \hspace{0.5cm}
+    \begin{subfigure}[b]{0.2\textwidth}
+		\includegraphics[width=\textwidth]{Part_4_images/Figure6b.png}
+        \caption{$\theta_{0} = 0.01$, itr=1000}
+    \end{subfigure}
+    \hspace{0.5cm}
+    \begin{subfigure}[b]{0.2\textwidth}
+		\includegraphics[width=\textwidth]{Part_4_images/Figure7b.png}
+        \caption{$\theta_{0} = rnd$, itr=1000}
+    \end{subfigure}
+	\caption{Theta represented as an image with different initializations of theta}
+	\label{fig:part4b2}
+\end{figure}
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 5
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+\textit{Demonstrating Overfitting}\\
+
+For this problem, theta was trained on actors in "act" to classify images as containing someone who is male or female. Gradient descent was run with the constant parameters of $\alpha = 0.000001$, max\_iter = 30000, and $\theta_{0} = [0.01]*1025$. Various training set sizes were used from 5 images per actor to 65 images per actor, incrementing by 5 images. Figure \ref {fig:part5} contains a plot with the performances of the classifiers at training set size. \\
+
+The green line represents the performance of the classifier on the training set, and the blue and orange lines represent the performance of the classifier on the validation sets of act and act2 respectively. The performance of the classifier on the training set is almost perfect, with the exception of the smallest training set size of 5 images per actor which is slightly lower.The performance of the classifier on validation sets of act and act2 both increase as the size of the training set increases, with the performance on act2 being higher overall than the performance on act.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{Part_5_images/Plot.png}
+    \caption{Plot of performances at different training set sizes per actor}
+    \label{fig:part5}
+\end{figure}
+
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 6
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+\textit{Classification with Multiple Classes}\\
+
+\textbf{6(a)}\\
+
+The cost function is:
+$$J(\theta) = \sum_{i}(\sum_{j}(\theta^{T}x^{(i)} - y^{(i)})_{j}^{2})$$
+Find: 
+$$\frac{\partial J}{\partial\theta_{pq}} =  \sum_{i}(\sum_{j}(\theta^{T}x^{(i)} - y^{(i)})_{j}^{2}) =  \sum_{i}(\sum_{j}\frac{\partial}{\partial\theta_{pq}}[(\theta^{T}x^{(i)} - y^{(i)})_{j}^{2}])  $$
+$$= \sum_{i}(\sum_{j}2(\theta^{T}x^{(i)} - y^{(i)})_{j})\frac{\partial}{\partial_{pq}}[(\theta^{T}x^{(i)} - y^{(i)})_{j}])$$
+$$=2\sum_{i}(\theta^{T}x^{(i)} - y^{(i)})_{q}x_{p}^{(i)}$$
+
+\textbf{6(b)}\\
+Let m be the number of training examples.\\
+Let $\theta$ be a p by q matrix, x be an p by 1 matrix, and y be a q by 1 matrix. 
+
+$$\frac{\partial J}{\partial\theta} = 
+\begin {bmatrix}
+\frac{\partial J}{\partial\theta_{11}} & \hdots & \frac{\partial J}{\partial\theta_{1q}}\\
+\vdots & \ddots & \vdots\\
+\frac{\partial J}{\partial\theta_{1p}} & \hdots & \frac{\partial J}{\partial\theta_{pq}}
+\end{bmatrix} = 
+\begin {bmatrix}
+2\sum_{i}^{m}(\theta^{T}x^{(i)} - y^{(i)})_{1}x_{1}^{(i)} & \hdots & 2\sum_{i}^{m}(\theta^{T}x^{(i)} - y^{(i)})_{q}x_{1}^{(i)}\\
+\vdots & \ddots & \vdots\\
+2\sum_{i}^{m}(\theta^{T}x^{(i)} - y^{(i)})_{1}x_{p}^{(i)} & \hdots & 2\sum_{i}^{m}(\theta^{T}x^{(i)} - y^{(i)})_{q}x_{p}^{(i)}
+\end{bmatrix}$$
+$$= 2
+%X
+\begin {bmatrix}
+x_{1}^{(1)} & \hdots & x_{1}^{(q)}\\
+\vdots & \ddots & \vdots\\
+x_{p}^{(1)} & \hdots & x_{p}^{(q)}
+\end{bmatrix}
+\left\{
+%X^T
+\begin {bmatrix}
+x_{1}^{(1)} & \hdots & x_{p}^{(1)}\\
+\vdots & \ddots & \vdots\\
+x_{1}^{(q)} & \hdots & x_{p}^{(q)}
+\end{bmatrix}
+%Theta
+\begin {bmatrix}
+\theta^{T}_{1} & \hdots & \theta^{T}_{q}\\
+\vdots & \ddots & \vdots\\
+\theta^{T}_{1} & \hdots & \theta^{T}_{q}
+\end{bmatrix} - 
+%Y
+\begin {bmatrix}
+y_{1}^{(1)} & \hdots & y_{q}^{(1)}\\
+\vdots & \ddots & \vdots\\
+y_{1}^{(m)} & \hdots & y_{q}^{(m)}
+\end{bmatrix}
+\right\}
+$$
+$$=2X( X^{T} \theta -Y^{T})$$
+$$=2X(\theta^{T}X-Y)^{T}$$
+
+\textbf{6(c)} The following is the code of the cost function and its vectorized gradient function. 
+
+\begin{lstlisting}[language=Python, caption=Code of the cost function and gradient function]
+def fPart6 (X, Y, theta):
+    '''Vectorized cost function'''
+    return sum( (Y - matmul(theta.T,X)) ** 2)
+
+def dfPart6 (X, Y, theta):
+    '''Vectorized cost function gradient'''
+    return 2*matmul(X,(matmul(theta.T, X)-Y).T)
+\end{lstlisting}
+\newpage
+\textbf{6(d)} The following listing includes the code to calculate a finite difference approximation. The value of h was selected to be 0.01, as it produced the lowest error between the finite difference and the gradient. The two values were compared simply by indexing the gradient with the coordinate that was selected to calculate the finite difference, taking the value calculated through finite differences, taking the difference of the two, and dividing by the indexed gradient.
+
+\begin{lstlisting}[language=Python, caption=Code to calculate a finite difference at coordinate pq]
+def df_approxPt6d (X,Y,p,q,theta, h):
+    cost = fPart6(X,Y,theta)
+    theta[p][q] += h
+    
+    return (fPart6(X,Y,theta)-cost)/h
+    
+def part6d (p,q):
+    alpha = 0.000001
+    max_iter = 100000
+    theta0 = array([0.01]*1025*6).reshape([1025,6]) #initialized to all low values
+
+    (X,Y) = readImages7("Training")
+    X = vstack( (ones((1, X.shape[1])), X))
+    
+    theta = dfPart6(X,Y,theta0)
+    theta_approx = df_approxPt6d(X,Y,p,q,theta0,0.01)
+    diff = (theta[p][q]-theta_approx)/theta[p][q]
+    print("Approx: " + str(theta_approx))
+    print("Exact: "+ str(theta[p][q]))
+    print ("% Difference = " + str(diff*100))
+\end{lstlisting}
+
+Below is a summary of the coordinates that were tested to compare the finite differences and the gradient. It can be seen that the percent difference between the finite differences and gradients are all less than 1. 
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+Coordinates & Finite Difference & Gradient      & \% Difference \\ \hline
+(5,2)       & 1183.446          & 1182.993      & 0.038\%       \\ \hline
+(234,4)     & 3007.661          & 3005.666      & 0.066\%       \\ \hline
+(600,5)     & 3415.365          & 3412.867      & 0.073\%       \\ \hline
+(750,3)     & 2808.514          & 2806.759      & 0.062\%       \\ \hline
+(1000,1)    & 1979.3714659      & 1978.33044306 & 0.05\%        \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 7
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+\textit{Six actor gradient descent}\\
+
+The this problem, gradient descent trained on the images of the 6 actors in 'act'. The labels of each of the six actors are as follows: 
+\begin{verbatim}
+[1,0,0,0,0,0] = 'bracco'
+[0,1,0,0,0,0] = 'gilpin'
+[0,0,1,0,0,0] = 'harmon'
+[0,0,0,1,0,0] = 'baldwin'
+[0,0,0,0,1,0] = 'hader'
+[0,0,0,0,0,1] = 'carell'
+\end{verbatim}
+
+The parameters for this multiclass classification were chosen similarly to as in Part 3 of the assignment. $\alpha$ was chosen to be small enough so as to not overflow the program during multiplication, but not small enough to not converge the function to a minimum quick enough. In then end, the same $\alpha = 0.000001$ was chosen. Theta was initialized in the same strategy as previously, as it was shown that random initializations of theta converge very slowly. The maximum number of iterations was chosen to be 100000 so that gradient descent had enough time to find the true minimum of the cost function. \\
+
+After training theta with these parameters, the accuracy of the classifier on the training set was found to be 99.7\% and the accuracy of the classifier on the validation set was 80.0\%.
+
+
+
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 8
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+
+\textit{Visualizating theta for multiple classes}\\
+
+In Figure \ref{fig:part8}, the theta for each of the actors is represented as a 32x32 pixel image. 
+
+\begin{figure}[h]
+	\centering
+    \begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{Part_8_images/bracco.png}
+        \caption{Lorraine Bracco}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{Part_8_images/gilpin.png}
+        \caption{Peri Gilpin}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{Part_8_images/harmon.png}
+        \caption{Angie Harmon}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{Part_8_images/baldwin.png}
+        \caption{Alec Baldwin}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{Part_8_images/hader.png}
+        \caption{Bill Hader}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{Part_8_images/carell.png}
+    	\caption{Steve Carell}
+    \end{subfigure}
+    
+	\caption{6 images each representing the theta of their respective actors}
+	\label{fig:part8}
+\end{figure}
+
+
+
+
+
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+\end{document}
